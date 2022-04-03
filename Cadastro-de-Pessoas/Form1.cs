@@ -7,6 +7,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Data.SqlServerCe;
+using System.IO;
 
 namespace Cadastro_de_Pessoas
 {
@@ -15,6 +17,11 @@ namespace Cadastro_de_Pessoas
         public Form1()
         {
             InitializeComponent();
+        }
+
+        private void Form1_Load(object sender, EventArgs e)
+        {
+            ConexãoDB dB = new ConexãoDB();            
         }
     }
 }
