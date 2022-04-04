@@ -15,7 +15,8 @@ namespace Cadastro_de_Pessoas
 {
     public partial class Form1 : Form
     {
-        ConexãoDB dB = new ConexãoDB();
+        private int auxiliar = 0;
+        private ConexãoDB dB = new ConexãoDB();
         public Form1()
         {
             InitializeComponent();
@@ -33,14 +34,21 @@ namespace Cadastro_de_Pessoas
             btAlterar.Text = "Cancelar";
             this.habilitarBotao(0);
 
-            if ( (tbNome.Text.Trim() != "") && (mtCPF.Text != ""))
+            if ((tbNome.Text.Trim() != "") && (mtCPF.Text != ""))
             {
-                if (dB.Insert(mtCPF.Text, tbNome.Text, mtData.Text, tbCidade.Text, cbUF.Text))
+                if (this.auxiliar == 0 && dB.Insert(mtCPF.Text, tbNome.Text, mtData.Text, tbCidade.Text, cbUF.Text))
                 {                    
                     this.habilitarBotao(1);
                     this.PreencherTabela(dB.Consulta());
                 }
-            }           
+                else if (this.auxiliar == 1 && btAlterar.Text == "Cancelar")
+                {
+                    this.auxiliar = 0;
+                    dB.alteracao(mtCPF.Text, tbNome.Text, mtData.Text, tbCidade.Text, cbUF.Text);
+                    this.PreencherTabela(dB.Consulta());
+                    this.habilitarBotao(1);
+                }
+            }            
         }
 
 
@@ -74,6 +82,11 @@ namespace Cadastro_de_Pessoas
                     btAlterar.Text = "Alterar";
                     break;
                 case 2:
+                    tbNome.Enabled = true;
+                    mtCPF.Enabled = true;
+                    tbCidade.Enabled = true;
+                    cbUF.Enabled = true;
+                    mtData.Enabled = true;
                     break;
             }
         }
@@ -83,6 +96,14 @@ namespace Cadastro_de_Pessoas
             if (btAlterar.Text == "Cancelar")
             {
                 this.habilitarBotao(1);
+            }
+            else if(btAlterar.Text == "Alterar")
+            {
+                this.auxiliar = 1;
+                btAlterar.Text = "Cancelar";
+                btIncluir.Text = "Gravar";
+                btExcluir.Enabled = false;
+                this.habilitarBotao(2);
             }
         }
 
@@ -95,17 +116,34 @@ namespace Cadastro_de_Pessoas
             }
         }
 
-        private void dgDadosPessoas_RowHeaderMouseClick(object sender, DataGridViewCellMouseEventArgs e)
-        {
-           //tbNome.Text = dgDadosPessoas.SelectedRows[e.RowIndex].Cells[e.ColumnIndex].Value.ToString();
-        }
-
         private void btExcluir_Click(object sender, EventArgs e)
         {
             string cpf = dgDadosPessoas.SelectedRows[0].Cells[0].Value.ToString();
 
             dB.Excluir(cpf);
             this.PreencherTabela(dB.Consulta());
+        }
+
+        private void dgDadosPessoas_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            this.PreencherInforma();            
+        }
+
+        private void PreencherInforma()
+        {
+            try
+            {
+                mtCPF.Text = dgDadosPessoas.SelectedRows[0].Cells[0].Value.ToString();
+                tbNome.Text = dgDadosPessoas.SelectedRows[0].Cells[0 + 1].Value.ToString();
+                mtData.Text = dgDadosPessoas.SelectedRows[0].Cells[0 + 2].Value.ToString();
+                tbCidade.Text = dgDadosPessoas.SelectedRows[0].Cells[0 + 3].Value.ToString();
+                cbUF.Text = dgDadosPessoas.SelectedRows[0].Cells[0 + 4].Value.ToString();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+            
         }
     }
 }

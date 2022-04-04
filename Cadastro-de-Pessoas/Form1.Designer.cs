@@ -47,6 +47,8 @@
             this.cpf = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.nome = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.DT_NASCIMENTO = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.CIDADE_NASCIMENTO = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.UF_NASCIMENTO = new System.Windows.Forms.DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)(this.dgDadosPessoas)).BeginInit();
             this.SuspendLayout();
             // 
@@ -199,7 +201,9 @@
             this.dgDadosPessoas.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.cpf,
             this.nome,
-            this.DT_NASCIMENTO});
+            this.DT_NASCIMENTO,
+            this.CIDADE_NASCIMENTO,
+            this.UF_NASCIMENTO});
             this.dgDadosPessoas.EditMode = System.Windows.Forms.DataGridViewEditMode.EditOnEnter;
             this.dgDadosPessoas.Location = new System.Drawing.Point(15, 233);
             this.dgDadosPessoas.MultiSelect = false;
@@ -208,7 +212,7 @@
             this.dgDadosPessoas.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dgDadosPessoas.Size = new System.Drawing.Size(557, 205);
             this.dgDadosPessoas.TabIndex = 12;
-            this.dgDadosPessoas.RowHeaderMouseClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.dgDadosPessoas_RowHeaderMouseClick);
+            this.dgDadosPessoas.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgDadosPessoas_CellClick);
             // 
             // btIncluir
             // 
@@ -264,6 +268,18 @@
             this.DT_NASCIMENTO.ReadOnly = true;
             this.DT_NASCIMENTO.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
             // 
+            // CIDADE_NASCIMENTO
+            // 
+            this.CIDADE_NASCIMENTO.HeaderText = "NATURALIDADE";
+            this.CIDADE_NASCIMENTO.Name = "CIDADE_NASCIMENTO";
+            this.CIDADE_NASCIMENTO.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            // 
+            // UF_NASCIMENTO
+            // 
+            this.UF_NASCIMENTO.HeaderText = "UF";
+            this.UF_NASCIMENTO.Name = "UF_NASCIMENTO";
+            this.UF_NASCIMENTO.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -316,6 +332,8 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn cpf;
         private System.Windows.Forms.DataGridViewTextBoxColumn nome;
         private System.Windows.Forms.DataGridViewTextBoxColumn DT_NASCIMENTO;
+        private System.Windows.Forms.DataGridViewTextBoxColumn CIDADE_NASCIMENTO;
+        private System.Windows.Forms.DataGridViewTextBoxColumn UF_NASCIMENTO;
     }
 }
 

@@ -11,11 +11,13 @@ using System.Windows.Forms;
 namespace Cadastro_de_Pessoas
 {
     public class ConexãoDB
-    {    
+    {
+        private string caminhoDB { get;} = Application.StartupPath + @"\CadastroPessoas.sdf";
+        private string strConecxao { get; set; } 
+
         public void CriarDB()
         {
-            string caminhoDB = Application.StartupPath + @"\CadastroPessoas.sdf";
-            string strConecxao = "DataSource=" + caminhoDB + ";Password=1234";
+            this.strConecxao = "DataSource=" + caminhoDB + ";Password=1234";
             SqlCeEngine sqlCeEngine = new SqlCeEngine();
 
             try
@@ -33,7 +35,9 @@ namespace Cadastro_de_Pessoas
                     {
                         sqlCeConnection.ConnectionString = strConecxao;
                         sqlCeConnection.Open();
-                        
+                        cmd.Connection = sqlCeConnection;
+                        cmd.CommandText = "CREATE TABLE PESSOAS (CPF NVARCHAR(11) NOT NULL PRIMARY KEY, NOME NVARCHAR(100) NOT NULL, DATA_NASCIMENTO NVARCHAR(18), CIDADE_NASCIMENTO NVARCHAR(100), UF_NASCIMENTO nchar(2))";
+                        cmd.ExecuteNonQuery();
                     }
                     catch (Exception ex)
                     {
@@ -137,6 +141,33 @@ namespace Cadastro_de_Pessoas
             catch (Exception ex)
             {
                 MessageBox.Show("Erro na exclusão de dados. " + ex.Message);
+            }
+            finally
+            {
+                sqlCeCommand.Dispose();
+                sqlCeConnection.Close();
+            }
+        }
+
+        public void alteracao(string cpf, string nome, string dt_nascimento, string cidade, string uf)
+        {
+            string valores = $"CPF = '{cpf}', NOME = '{nome}', DATA_NASCIMENTO = '{dt_nascimento}', CIDADE_NASCIMENTO = '{cidade}', UF_NASCIMENTO = '{uf}'";
+            
+            SqlCeConnection sqlCeConnection = new SqlCeConnection();
+            SqlCeCommand sqlCeCommand = new SqlCeCommand();
+
+            try
+            {
+                sqlCeConnection.ConnectionString = strConecxao;
+                sqlCeConnection.Open();
+
+                sqlCeCommand.Connection = sqlCeConnection;
+                sqlCeCommand.CommandText = "UPDATE PESSOAS SET " + valores + $"WHERE CPF ='{cpf}';";
+                sqlCeCommand.ExecuteNonQuery();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Erro na alteração de dados. " + ex.Message);
             }
             finally
             {
