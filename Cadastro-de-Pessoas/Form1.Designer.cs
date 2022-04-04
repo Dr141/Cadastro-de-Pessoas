@@ -41,12 +41,12 @@
             this.cbUF = new System.Windows.Forms.ComboBox();
             this.label6 = new System.Windows.Forms.Label();
             this.dgDadosPessoas = new System.Windows.Forms.DataGridView();
+            this.btIncluir = new System.Windows.Forms.Button();
+            this.btAlterar = new System.Windows.Forms.Button();
+            this.btExcluir = new System.Windows.Forms.Button();
             this.cpf = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.nome = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.DT_NASCIMENTO = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.button1 = new System.Windows.Forms.Button();
-            this.button2 = new System.Windows.Forms.Button();
-            this.button3 = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dgDadosPessoas)).BeginInit();
             this.SuspendLayout();
             // 
@@ -118,6 +118,7 @@
             this.mtCPF.Name = "mtCPF";
             this.mtCPF.Size = new System.Drawing.Size(154, 26);
             this.mtCPF.TabIndex = 6;
+            this.mtCPF.TextMaskFormat = System.Windows.Forms.MaskFormat.ExcludePromptAndLiterals;
             // 
             // mtData
             // 
@@ -128,6 +129,7 @@
             this.mtData.Name = "mtData";
             this.mtData.Size = new System.Drawing.Size(108, 26);
             this.mtData.TabIndex = 7;
+            this.mtData.TextMaskFormat = System.Windows.Forms.MaskFormat.ExcludePromptAndLiterals;
             this.mtData.ValidatingType = typeof(System.DateTime);
             // 
             // tbCidade
@@ -198,65 +200,78 @@
             this.cpf,
             this.nome,
             this.DT_NASCIMENTO});
+            this.dgDadosPessoas.EditMode = System.Windows.Forms.DataGridViewEditMode.EditOnEnter;
             this.dgDadosPessoas.Location = new System.Drawing.Point(15, 233);
+            this.dgDadosPessoas.MultiSelect = false;
             this.dgDadosPessoas.Name = "dgDadosPessoas";
             this.dgDadosPessoas.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.AutoSizeToAllHeaders;
+            this.dgDadosPessoas.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dgDadosPessoas.Size = new System.Drawing.Size(557, 205);
             this.dgDadosPessoas.TabIndex = 12;
+            this.dgDadosPessoas.RowHeaderMouseClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.dgDadosPessoas_RowHeaderMouseClick);
+            // 
+            // btIncluir
+            // 
+            this.btIncluir.Font = new System.Drawing.Font("Courier New", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btIncluir.Location = new System.Drawing.Point(15, 195);
+            this.btIncluir.Name = "btIncluir";
+            this.btIncluir.Size = new System.Drawing.Size(126, 28);
+            this.btIncluir.TabIndex = 13;
+            this.btIncluir.Text = "Incluir";
+            this.btIncluir.UseVisualStyleBackColor = true;
+            this.btIncluir.Click += new System.EventHandler(this.button1_Click);
+            // 
+            // btAlterar
+            // 
+            this.btAlterar.Font = new System.Drawing.Font("Courier New", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btAlterar.Location = new System.Drawing.Point(158, 195);
+            this.btAlterar.Name = "btAlterar";
+            this.btAlterar.Size = new System.Drawing.Size(126, 28);
+            this.btAlterar.TabIndex = 14;
+            this.btAlterar.Text = "Alterar";
+            this.btAlterar.UseVisualStyleBackColor = true;
+            this.btAlterar.Click += new System.EventHandler(this.btAlterar_Click);
+            // 
+            // btExcluir
+            // 
+            this.btExcluir.Font = new System.Drawing.Font("Courier New", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btExcluir.Location = new System.Drawing.Point(303, 195);
+            this.btExcluir.Name = "btExcluir";
+            this.btExcluir.Size = new System.Drawing.Size(126, 28);
+            this.btExcluir.TabIndex = 15;
+            this.btExcluir.Text = "Excluir";
+            this.btExcluir.UseVisualStyleBackColor = true;
+            this.btExcluir.Click += new System.EventHandler(this.btExcluir_Click);
             // 
             // cpf
             // 
             this.cpf.HeaderText = "CPF";
             this.cpf.Name = "cpf";
+            this.cpf.ReadOnly = true;
+            this.cpf.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
             // 
             // nome
             // 
             this.nome.HeaderText = "NOME";
             this.nome.Name = "nome";
+            this.nome.ReadOnly = true;
+            this.nome.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
             // 
             // DT_NASCIMENTO
             // 
             this.DT_NASCIMENTO.HeaderText = "Dt_Nascimento";
             this.DT_NASCIMENTO.Name = "DT_NASCIMENTO";
-            // 
-            // button1
-            // 
-            this.button1.Font = new System.Drawing.Font("Courier New", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button1.Location = new System.Drawing.Point(15, 195);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(126, 28);
-            this.button1.TabIndex = 13;
-            this.button1.Text = "Incluir";
-            this.button1.UseVisualStyleBackColor = true;
-            // 
-            // button2
-            // 
-            this.button2.Font = new System.Drawing.Font("Courier New", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button2.Location = new System.Drawing.Point(158, 195);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(126, 28);
-            this.button2.TabIndex = 14;
-            this.button2.Text = "Alterar";
-            this.button2.UseVisualStyleBackColor = true;
-            // 
-            // button3
-            // 
-            this.button3.Font = new System.Drawing.Font("Courier New", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button3.Location = new System.Drawing.Point(303, 195);
-            this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(126, 28);
-            this.button3.TabIndex = 15;
-            this.button3.Text = "Excluir";
-            this.button3.UseVisualStyleBackColor = true;
+            this.DT_NASCIMENTO.ReadOnly = true;
+            this.DT_NASCIMENTO.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(582, 450);
-            this.Controls.Add(this.button3);
-            this.Controls.Add(this.button2);
-            this.Controls.Add(this.button1);
+            this.Controls.Add(this.btExcluir);
+            this.Controls.Add(this.btAlterar);
+            this.Controls.Add(this.btIncluir);
             this.Controls.Add(this.dgDadosPessoas);
             this.Controls.Add(this.label6);
             this.Controls.Add(this.cbUF);
@@ -295,12 +310,12 @@
         private System.Windows.Forms.ComboBox cbUF;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.DataGridView dgDadosPessoas;
+        private System.Windows.Forms.Button btIncluir;
+        private System.Windows.Forms.Button btAlterar;
+        private System.Windows.Forms.Button btExcluir;
         private System.Windows.Forms.DataGridViewTextBoxColumn cpf;
         private System.Windows.Forms.DataGridViewTextBoxColumn nome;
         private System.Windows.Forms.DataGridViewTextBoxColumn DT_NASCIMENTO;
-        private System.Windows.Forms.Button button1;
-        private System.Windows.Forms.Button button2;
-        private System.Windows.Forms.Button button3;
     }
 }
 
