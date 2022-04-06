@@ -17,6 +17,8 @@ namespace Cadastro_de_Pessoas
     {
         private int auxiliar = 0;
         private ConexãoDB dB = new ConexãoDB();
+        private LogSistema log = new LogSistema();
+
         public Form1()
         {
             InitializeComponent();
@@ -138,10 +140,12 @@ namespace Cadastro_de_Pessoas
                 mtData.Text = dgDadosPessoas.SelectedRows[0].Cells[0 + 2].Value.ToString();
                 tbCidade.Text = dgDadosPessoas.SelectedRows[0].Cells[0 + 3].Value.ToString();
                 cbUF.Text = dgDadosPessoas.SelectedRows[0].Cells[0 + 4].Value.ToString();
+                log.Escrever("Carregado informações na tela com sucesso.");
             }
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message);
+                log.Escrever("Erro ao carregado informações na tela. " + ex.Message + ". " + ex.InnerException);
             }
             
         }

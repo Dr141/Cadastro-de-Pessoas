@@ -10,7 +10,7 @@ using System.Windows.Forms;
 
 namespace Cadastro_de_Pessoas
 {
-    public class ConexãoDB
+    public class ConexãoDB : LogSistema
     {
         private string caminhoDB { get;} = Application.StartupPath + @"\CadastroPessoas.sdf";
         private string strConecxao { get; set; } 
@@ -38,10 +38,12 @@ namespace Cadastro_de_Pessoas
                         cmd.Connection = sqlCeConnection;
                         cmd.CommandText = "CREATE TABLE PESSOAS (CPF NVARCHAR(11) NOT NULL PRIMARY KEY, NOME NVARCHAR(100) NOT NULL, DATA_NASCIMENTO NVARCHAR(18), CIDADE_NASCIMENTO NVARCHAR(100), UF_NASCIMENTO nchar(2))";
                         cmd.ExecuteNonQuery();
+                        Escrever("Base de dados criada com sucesso.");
                     }
                     catch (Exception ex)
                     {
                         MessageBox.Show("Erro ao tentar criar DB. " + ex.Message);
+                        Escrever("Erro durante a criação da base de dados. " + ex.Message + ". " + ex.InnerException);
                     }
                     finally
                     {
@@ -78,11 +80,13 @@ namespace Cadastro_de_Pessoas
                 sqlCeCommand.CommandText = "INSERT INTO PESSOAS (CPF, NOME, DATA_NASCIMENTO, CIDADE_NASCIMENTO, UF_NASCIMENTO) VALUES " + valores;
                 sqlCeCommand.ExecuteNonQuery();
                 resultado = true;
+                Escrever("Realizada inserção na base de dados com sucesso.");
             }
             catch(Exception ex)
             {
                 MessageBox.Show("Erro na inserção de dados. " + ex.Message);
                 resultado = false;
+                Escrever("Erro na inserção de dados. " + ex.Message + ", " + ex.InnerException);
             }
             finally
             {
@@ -99,7 +103,7 @@ namespace Cadastro_de_Pessoas
             string strConecxao = "DataSource=" + caminhoDB + ";Password=1234";
             DataTable dados = new DataTable();
             SqlCeConnection sqlCeConnection = new SqlCeConnection();
-
+            
             try
             {
                 string query = "SELECT *FROM PESSOAS";
@@ -108,10 +112,12 @@ namespace Cadastro_de_Pessoas
                 SqlCeDataAdapter sqlCeDataAdapter = new SqlCeDataAdapter(query, sqlCeConnection);
                 sqlCeDataAdapter.Fill(dados);
                 sqlCeDataAdapter.Dispose();
+                Escrever("Realizada consulta na base de dados com sucesso.");
             }
             catch (Exception ex)
             {
                 MessageBox.Show("Erro ao realizar select. " + ex.Message);
+                Escrever("Erro ao realizar select. " + ex.Message + ". " + ex.InnerException);
             }
             finally
             {
@@ -137,6 +143,7 @@ namespace Cadastro_de_Pessoas
                 sqlCeCommand.Connection = sqlCeConnection;
                 sqlCeCommand.CommandText = "DELETE FROM PESSOAS WHERE CPF = " + valores;
                 sqlCeCommand.ExecuteNonQuery();
+                Escrever("Realizada exclusão na base de dados com sucesso.");
             }
             catch (Exception ex)
             {
@@ -164,10 +171,12 @@ namespace Cadastro_de_Pessoas
                 sqlCeCommand.Connection = sqlCeConnection;
                 sqlCeCommand.CommandText = "UPDATE PESSOAS SET " + valores + $"WHERE CPF ='{cpf}';";
                 sqlCeCommand.ExecuteNonQuery();
+                Escrever("Realizada alteração na base de dados com sucesso.");
             }
             catch (Exception ex)
             {
                 MessageBox.Show("Erro na alteração de dados. " + ex.Message);
+                Escrever("Erro na alteração de dados. " + ex.Message + ". " + ex.InnerException);
             }
             finally
             {
